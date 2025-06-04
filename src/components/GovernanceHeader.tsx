@@ -50,8 +50,10 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
                   <User className="w-4 h-4" />
                 </AvatarFallback>
               </Avatar>
-              <div className="text-sm">
-                <div className="font-medium text-gray-900">{currentUser.address.slice(0, 8)}...</div>
+              <div className="text-sm text-left">
+                <div className="font-medium text-gray-900">
+                  User123 <span className="text-gray-400 font-normal">{currentUser.address.slice(0, 8)}...</span>
+                </div>
                 <div className="text-gray-500">{currentUser.tokenBalance} GOV</div>
               </div>
               <Badge className={`${getRoleBadgeColor(currentUser.role)} border`}>
