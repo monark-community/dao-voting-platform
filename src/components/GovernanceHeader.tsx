@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Users, Building, Plus } from 'lucide-react';
-import { User } from '@/types/governance';
+import { Users, Building, Plus, User, ChevronDown } from 'lucide-react';
+import { User as UserType } from '@/types/governance';
 
 interface GovernanceHeaderProps {
-  currentUser: User;
+  currentUser: UserType;
   onCreateProposal: () => void;
   onRoleChange: (role: 'admin' | 'proposer' | 'voter') => void;
 }
@@ -41,14 +41,24 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
         
         <div className="flex items-center gap-4">
           <div className="relative">
-            <Button
-              variant="outline"
+            <button
               onClick={() => setIsRoleMenuOpen(!isRoleMenuOpen)}
-              className="flex items-center gap-2"
+              className="flex items-center gap-3 px-4 py-2 governance-card hover:shadow-md transition-all duration-200"
             >
-              <Users className="w-4 h-4" />
-              <span className="capitalize">{currentUser.role}</span>
-            </Button>
+              <Avatar className="w-8 h-8">
+                <AvatarFallback className="bg-gray-100 text-gray-700">
+                  <User className="w-4 h-4" />
+                </AvatarFallback>
+              </Avatar>
+              <div className="text-sm">
+                <div className="font-medium text-gray-900">{currentUser.address.slice(0, 8)}...</div>
+                <div className="text-gray-500">{currentUser.tokenBalance} GOV</div>
+              </div>
+              <Badge className={`${getRoleBadgeColor(currentUser.role)} border`}>
+                {currentUser.role}
+              </Badge>
+              <ChevronDown className="w-4 h-4 text-gray-500" />
+            </button>
             
             {isRoleMenuOpen && (
               <div className="absolute top-full mt-2 right-0 w-48 governance-card p-2 z-50">
@@ -66,21 +76,6 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
                 ))}
               </div>
             )}
-          </div>
-          
-          <div className="flex items-center gap-3 px-4 py-2 governance-card">
-            <Avatar className="w-8 h-8">
-              <AvatarFallback className="bg-gray-100 text-gray-700">
-                {currentUser.address.slice(0, 2).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div className="text-sm">
-              <div className="font-medium text-gray-900">{currentUser.address.slice(0, 8)}...</div>
-              <div className="text-gray-500">{currentUser.tokenBalance} GOV</div>
-            </div>
-            <Badge className={`${getRoleBadgeColor(currentUser.role)} border`}>
-              {currentUser.role}
-            </Badge>
           </div>
           
           {(currentUser.role === 'admin' || currentUser.role === 'proposer') && (
