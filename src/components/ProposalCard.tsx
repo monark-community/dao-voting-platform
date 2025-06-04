@@ -15,12 +15,27 @@ interface ProposalCardProps {
 const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: ProposalCardProps) => {
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'active': return <Badge className="status-active">Active</Badge>;
-      case 'pending': return <Badge className="status-pending">Pending</Badge>;
-      case 'completed': return <Badge className="status-completed">Completed</Badge>;
-      case 'failed': return <Badge className="bg-red-50 text-red-700 border border-red-200">Failed</Badge>;
+      case 'active': return <Badge className="bg-green-50 text-green-700 border border-green-200 px-3 py-1 font-medium">Active</Badge>;
+      case 'pending': return <Badge className="bg-yellow-50 text-yellow-700 border border-yellow-200 px-3 py-1 font-medium">Pending</Badge>;
+      case 'completed': return <Badge className="bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 font-medium">Completed</Badge>;
+      case 'failed': return <Badge className="bg-red-50 text-red-700 border border-red-200 px-3 py-1 font-medium">Failed</Badge>;
       default: return <Badge variant="secondary">{status}</Badge>;
     }
+  };
+
+  const getProposerUsername = (address: string) => {
+    // Generate consistent usernames based on address
+    const usernames = {
+      '0xabcdef1234567890': 'Alice42',
+      '0x9876543210fedcba': 'Bob_dev',
+      '0x5678901234abcdef': 'Charlie_gov',
+      '0x1111222233334444': 'Diana_eco',
+      '0x5555666677778888': 'Eve_proto',
+      '0x9999aaaabbbbcccc': 'Frank_dao',
+      '0xddddeeeeffffaaaa': 'Grace_sys',
+      '0xbbbbccccddddeeee': 'Henry_net'
+    };
+    return usernames[address] || 'Anonymous';
   };
 
   const totalVotes = proposal.votesFor + proposal.votesAgainst;
@@ -43,7 +58,9 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
             {proposal.description}
           </p>
           <div className="flex items-center gap-2 text-xs text-gray-500">
-            <span>by {proposal.proposer.slice(0, 8)}...</span>
+            <span>
+              by {getProposerUsername(proposal.proposer)} <span className="text-gray-400 font-normal">{proposal.proposer.slice(0, 8)}...</span>
+            </span>
             <span>•</span>
             <span className="capitalize">{proposal.category}</span>
           </div>
