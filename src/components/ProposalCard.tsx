@@ -18,7 +18,7 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
       case 'active': return <Badge className="status-active">Active</Badge>;
       case 'pending': return <Badge className="status-pending">Pending</Badge>;
       case 'completed': return <Badge className="status-completed">Completed</Badge>;
-      case 'failed': return <Badge className="bg-red-500/20 text-red-400 border border-red-500/30">Failed</Badge>;
+      case 'failed': return <Badge className="bg-red-50 text-red-700 border border-red-200">Failed</Badge>;
       default: return <Badge variant="secondary">{status}</Badge>;
     }
   };
@@ -36,16 +36,16 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
     <div className="proposal-card group">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-xl font-semibold mb-2 group-hover:text-purple-400 transition-colors">
+          <h3 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-blue-600 transition-colors">
             {proposal.title}
           </h3>
-          <p className="text-gray-400 text-sm mb-3 line-clamp-2">
+          <p className="text-gray-600 text-sm mb-3 line-clamp-2">
             {proposal.description}
           </p>
           <div className="flex items-center gap-2 text-xs text-gray-500">
             <span>by {proposal.proposer.slice(0, 8)}...</span>
             <span>•</span>
-            <span>{proposal.category}</span>
+            <span className="capitalize">{proposal.category}</span>
           </div>
         </div>
         {getStatusBadge(proposal.status)}
@@ -55,12 +55,12 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
         {/* Voting Results */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-green-400">For: {proposal.votesFor}</span>
-            <span className="text-red-400">Against: {proposal.votesAgainst}</span>
+            <span className="text-green-600 font-medium">For: {proposal.votesFor}</span>
+            <span className="text-red-600 font-medium">Against: {proposal.votesAgainst}</span>
           </div>
           <div className="voting-progress">
             <div 
-              className="h-full bg-gradient-to-r from-green-500 to-green-400 transition-all duration-500"
+              className="h-full bg-green-500 transition-all duration-500"
               style={{ width: `${forPercentage}%` }}
             />
           </div>
@@ -73,8 +73,8 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
         {/* Quorum Progress */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-gray-400">Quorum Progress</span>
-            <span className="text-gray-400">{Math.min(quorumProgress, 100).toFixed(1)}%</span>
+            <span className="text-gray-600">Quorum Progress</span>
+            <span className="text-gray-600">{Math.min(quorumProgress, 100).toFixed(1)}%</span>
           </div>
           <Progress value={Math.min(quorumProgress, 100)} className="h-2" />
           <div className="text-xs text-gray-500">
@@ -83,7 +83,7 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
         </div>
 
         {/* Time Left */}
-        <div className="flex items-center gap-2 text-sm text-gray-400">
+        <div className="flex items-center gap-2 text-sm text-gray-600">
           <Clock className="w-4 h-4" />
           <span>
             {daysLeft > 0 ? `${daysLeft} days left` : 'Voting ended'}
@@ -91,14 +91,14 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-4 border-t border-slate-700">
+        <div className="flex gap-2 pt-4 border-t border-gray-200">
           {canVote && (
             <>
               <Button 
                 size="sm" 
                 variant="outline"
                 onClick={() => onVote(proposal.id, 'for')}
-                className="flex-1 border-green-500/30 text-green-400 hover:bg-green-500/10"
+                className="flex-1 border-green-200 text-green-600 hover:bg-green-50"
               >
                 <CheckCircle className="w-4 h-4 mr-1" />
                 Vote For
@@ -107,7 +107,7 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
                 size="sm" 
                 variant="outline"
                 onClick={() => onVote(proposal.id, 'against')}
-                className="flex-1 border-red-500/30 text-red-400 hover:bg-red-500/10"
+                className="flex-1 border-red-200 text-red-600 hover:bg-red-50"
               >
                 <XCircle className="w-4 h-4 mr-1" />
                 Vote Against
@@ -126,7 +126,7 @@ const ProposalCard = ({ proposal, currentUser, onVote, onViewDetails }: Proposal
         </div>
 
         {hasUserVoted && (
-          <div className="text-center text-sm text-blue-400 bg-blue-500/10 py-2 rounded border border-blue-500/30">
+          <div className="text-center text-sm text-blue-600 bg-blue-50 py-2 rounded border border-blue-200">
             ✓ You have voted on this proposal
           </div>
         )}

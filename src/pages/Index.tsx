@@ -145,7 +145,7 @@ const Index = () => {
   const participationRate = proposals.length > 0 ? (totalVoters / proposals.length) * 10 : 0;
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
         <GovernanceHeader
           currentUser={currentUser}
@@ -168,16 +168,16 @@ const Index = () => {
                 placeholder="Search proposals..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-slate-800 border-slate-600"
+                className="pl-10 bg-white border-gray-300"
               />
             </div>
             
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full md:w-48 bg-slate-800 border-slate-600">
+              <SelectTrigger className="w-full md:w-48 bg-white border-gray-300">
                 <Filter className="w-4 h-4 mr-2" />
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
+              <SelectContent className="bg-white border-gray-300">
                 <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="completed">Completed</SelectItem>
@@ -186,10 +186,10 @@ const Index = () => {
             </Select>
             
             <Select value={categoryFilter} onValueChange={setCategoryFilter}>
-              <SelectTrigger className="w-full md:w-48 bg-slate-800 border-slate-600">
+              <SelectTrigger className="w-full md:w-48 bg-white border-gray-300">
                 <SelectValue placeholder="Filter by category" />
               </SelectTrigger>
-              <SelectContent className="bg-slate-800 border-slate-600">
+              <SelectContent className="bg-white border-gray-300">
                 <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="treasury">Treasury</SelectItem>
                 <SelectItem value="protocol">Protocol</SelectItem>
@@ -214,7 +214,7 @@ const Index = () => {
           
           {filteredProposals.length === 0 && (
             <div className="text-center py-12">
-              <div className="text-gray-400 text-lg mb-2">No proposals found</div>
+              <div className="text-gray-600 text-lg mb-2">No proposals found</div>
               <div className="text-gray-500">Try adjusting your search or filters</div>
             </div>
           )}

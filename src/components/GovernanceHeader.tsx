@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Users, Vote, Plus } from 'lucide-react';
+import { Users, Building, Plus } from 'lucide-react';
 import { User } from '@/types/governance';
 
 interface GovernanceHeaderProps {
@@ -17,10 +17,10 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
 
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
-      case 'admin': return 'bg-red-500/20 text-red-400 border-red-500/30';
-      case 'proposer': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-      case 'voter': return 'bg-green-500/20 text-green-400 border-green-500/30';
-      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+      case 'admin': return 'bg-red-50 text-red-700 border-red-200';
+      case 'proposer': return 'bg-blue-50 text-blue-700 border-blue-200';
+      case 'voter': return 'bg-green-50 text-green-700 border-green-200';
+      default: return 'bg-gray-50 text-gray-700 border-gray-200';
     }
   };
 
@@ -28,14 +28,14 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
     <div className="governance-card p-6 mb-8">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-governance-gradient rounded-full flex items-center justify-center">
-            <Vote className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+            <Building className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold text-gray-900">
               GovChain
             </h1>
-            <p className="text-gray-400">Decentralized Governance Platform</p>
+            <p className="text-gray-600">Decentralized Governance Platform</p>
           </div>
         </div>
         
@@ -59,7 +59,7 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
                       onRoleChange(role as any);
                       setIsRoleMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 rounded hover:bg-slate-700 transition-colors capitalize"
+                    className="w-full text-left px-3 py-2 rounded hover:bg-gray-50 transition-colors capitalize"
                   >
                     {role}
                   </button>
@@ -70,11 +70,13 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
           
           <div className="flex items-center gap-3 px-4 py-2 governance-card">
             <Avatar className="w-8 h-8">
-              <AvatarFallback>{currentUser.address.slice(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarFallback className="bg-gray-100 text-gray-700">
+                {currentUser.address.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
             <div className="text-sm">
-              <div className="font-medium">{currentUser.address.slice(0, 8)}...</div>
-              <div className="text-gray-400">{currentUser.tokenBalance} GOV</div>
+              <div className="font-medium text-gray-900">{currentUser.address.slice(0, 8)}...</div>
+              <div className="text-gray-500">{currentUser.tokenBalance} GOV</div>
             </div>
             <Badge className={`${getRoleBadgeColor(currentUser.role)} border`}>
               {currentUser.role}
@@ -84,7 +86,7 @@ const GovernanceHeader = ({ currentUser, onCreateProposal, onRoleChange }: Gover
           {(currentUser.role === 'admin' || currentUser.role === 'proposer') && (
             <Button 
               onClick={onCreateProposal}
-              className="bg-governance-gradient hover:opacity-90 transition-opacity"
+              className="bg-blue-600 hover:bg-blue-700 text-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               New Proposal
