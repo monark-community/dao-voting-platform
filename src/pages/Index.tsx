@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -101,7 +100,7 @@ const Index = () => {
       title: 'Community Events and Marketing Budget',
       description: 'Allocate 50,000 GOV tokens for community events, hackathons, and marketing initiatives to grow the ecosystem.',
       proposer: '0x9999aaaabbbbcccc',
-      status: 'pending',
+      status: 'active',
       createdAt: new Date('2024-01-16'),
       endDate: new Date('2024-01-26'),
       quorumRequired: 40,
